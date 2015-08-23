@@ -15,8 +15,8 @@ public class ProgramaCliente {
 
     public static void main(String[] args) {
 
-        ProgramaCliente.save();
-        ProgramaCliente.list();
+        ProgramaCliente.update();
+        //ProgramaCliente.find(851l);
     }
 
     public static void list() {
@@ -70,9 +70,29 @@ public class ProgramaCliente {
 
         HttpEntity<MultiValueMap<String, String>> req = new HttpEntity<MultiValueMap<String, String>>(map, headers);
 
-        String url = ProgramaCliente.REST_URL + "/save";
+        String url = ProgramaCliente.REST_URL;
 
         ResponseEntity<String> response = rest.exchange(url, HttpMethod.POST, req, String.class);
+        System.out.println(response.getBody());
+    }
+    
+    
+      public static void update() {
+        RestTemplate rest = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
+        map.add("id", "851");
+        map.add("nombre", "Programa REST");
+        map.add("codigo", "999");
+
+        HttpEntity<MultiValueMap<String, String>> req = new HttpEntity<MultiValueMap<String, String>>(map, headers);
+
+        String url = ProgramaCliente.REST_URL;
+
+        ResponseEntity<String> response = rest.exchange(url, HttpMethod.PUT, req, String.class);
         System.out.println(response.getBody());
     }
 
